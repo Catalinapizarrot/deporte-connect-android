@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Balón marca de agua -->
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/bg_ball_watermark"
+            android:alpha="0.06"
+            android:contentDescription="" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- ═══ Ícono del deporte (círculo con color) ═══ -->
+            <FrameLayout
+                android:id="@+id/sportIconContainer"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="14dp">
+
+                <ImageView
+                    android:id="@+id/ivSportTagIcon"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Etiqueta de la comuna (arriba, chica) -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:background="@drawable/bg_sport_tag">
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:src="@drawable/ic_location_pin"
+                        app:tint="#777777"
+                        android:contentDescription="" />
+
+                    <TextView
+                        android:id="@+id/tvLocationTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:letterSpacing="0.03"
+                        android:layout_marginStart="4dp" />
+                </LinearLayout>
+
+                <!-- Nombre del deporte (grande) -->
+                <TextView
+                    android:id="@+id/tvMatchName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#111111"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Fecha/hora -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="#666666"
+                        android:contentDescription="" />
+
+                    <TextView
+                        android:id="@+id/tvMatchDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="#555555"
+                        android:layout_marginStart="6dp" />
+                </LinearLayout>
+
+                <!-- Cupos -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+
+                    <ImageView
+                        android:id="@+id/ivSlotsIcon"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_group"
+                        app:tint="@color/dc_green"
+                        android:contentDescription="" />
+
+                    <TextView
+                        android:id="@+id/tvSlots"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/dc_green"
+                        android:textStyle="bold"
+                        android:layout_marginStart="6dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnViewDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="VER\nDETALLE"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:letterSpacing="0.05"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                app:backgroundTint="@color/dc_green"
+                app:cornerRadius="10dp"
+                app:elevation="0dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

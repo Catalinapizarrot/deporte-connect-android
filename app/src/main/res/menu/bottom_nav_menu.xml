@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_filled"
+        android:title="INICIO" />
+
+    <item
+        android:id="@+id/nav_matches"
+        android:icon="@drawable/ic_sports_cluster"
+        android:title="MIS PARTIDOS" />
+
+    <item
+        android:id="@+id/nav_messages"
+        android:icon="@drawable/ic_chat"
+        android:title="MENSAJES" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_person"
+        android:title="PERFIL" />
+</menu>

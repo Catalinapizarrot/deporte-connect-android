@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Líneas diagonales decorativas del fondo de la pantalla Welcome -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="200dp" android:bottom="-200dp"
+          android:start="-100dp" android:end="100dp">
+        <rotate android:fromDegrees="-45">
+            <shape android:shape="rectangle">
+                <stroke android:width="1dp" android:color="#FFFFFF" />
+                <size android:width="1dp" android:height="1000dp" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:top="200dp" android:bottom="-200dp"
+          android:start="100dp" android:end="-100dp">
+        <rotate android:fromDegrees="-45">
+            <shape android:shape="rectangle">
+                <stroke android:width="1dp" android:color="#FFFFFF" />
+                <size android:width="1dp" android:height="1000dp" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

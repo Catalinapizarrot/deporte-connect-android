@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F8FAFC">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/dc_blue_dark"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@android:color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Volver" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Crear Nueva Actividad"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/dc_blue"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DEFINE EL RETO"
+                        android:textColor="#A5C8FF"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.15" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tu próximo partido empieza aquí"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="6dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TÍTULO DE LA ACTIVIDAD"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeColor="@color/dc_blue"
+                app:boxBackgroundColor="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ej: Pichanga de Viernes Noche"
+                    android:textColorHint="#9CA3AF"
+                    android:textSize="14sp"
+                    android:inputType="text|textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DEPORTE"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSport"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#D1D5DB"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:id="@+id/tvSport"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Selecciona un deporte"
+                        android:textColor="#9CA3AF"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_arrow_drop_down"
+                        app:tint="#666666"
+                        android:contentDescription="" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UBICACIÓN"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLocation"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#D1D5DB"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_location_pin"
+                        app:tint="#666666"
+                        android:contentDescription=""
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Selecciona una ubicación"
+                        android:textColor="#9CA3AF"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_arrow_drop_down"
+                        app:tint="#666666"
+                        android:contentDescription="" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="18dp"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FECHA"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#666666"
+                        android:letterSpacing="0.1"
+                        android:layout_marginBottom="6dp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#D1D5DB"
+                        app:strokeWidth="1dp"
+                        app:cardBackgroundColor="@android:color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="#666666"
+                                android:layout_marginEnd="8dp"
+                                android:contentDescription="" />
+
+                            <TextView
+                                android:id="@+id/tvDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="dd-mm-aaaa"
+                                android:textColor="#9CA3AF"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HORA"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#666666"
+                        android:letterSpacing="0.1"
+                        android:layout_marginBottom="6dp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#D1D5DB"
+                        app:strokeWidth="1dp"
+                        app:cardBackgroundColor="@android:color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/ic_clock"
+                                app:tint="#666666"
+                                android:layout_marginEnd="8dp"
+                                android:contentDescription="" />
+
+                            <TextView
+                                android:id="@+id/tvTime"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="--:--"
+                                android:textColor="#9CA3AF"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CUPO MÁXIMO"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMaxParticipants"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeColor="@color/dc_blue"
+                app:boxBackgroundColor="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMaxParticipants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ej: 10"
+                    android:textColorHint="#9CA3AF"
+                    android:textSize="14sp"
+                    android:inputType="number"
+                    android:maxLength="3" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRECIO POR PERSONA (opcional)"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPrice"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:prefixText="$ "
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeColor="@color/dc_blue"
+                app:boxBackgroundColor="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="0 (gratis)"
+                    android:textColorHint="#9CA3AF"
+                    android:textSize="14sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DESCRIPCIÓN Y REQUISITOS"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeColor="@color/dc_blue"
+                app:boxBackgroundColor="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Detalles, requisitos, nivel..."
+                    android:textColorHint="#9CA3AF"
+                    android:textSize="14sp"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minLines="3"
+                    android:gravity="top|start" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PÚBLICO"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPublicMen"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Hombres"
+                    android:textSize="13sp"
+                    android:textAllCaps="false"
+                    android:textColor="#666666"
+                    android:layout_marginEnd="4dp"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="#D1D5DB"
+                    app:strokeWidth="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPublicMixed"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Mixto"
+                    android:textSize="13sp"
+                    android:textAllCaps="false"
+                    android:textColor="#666666"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="#D1D5DB"
+                    app:strokeWidth="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPublicWomen"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Mujeres"
+                    android:textSize="13sp"
+                    android:textAllCaps="false"
+                    android:textColor="#666666"
+                    android:layout_marginStart="4dp"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="#D1D5DB"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NIVEL DE LA ACTIVIDAD"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLevelBeginner"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Principiante"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:textColor="#666666"
+                    android:layout_marginEnd="4dp"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="#D1D5DB"
+                    app:strokeWidth="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLevelIntermediate"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Intermedio"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:textColor="#666666"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="#D1D5DB"
+                    app:strokeWidth="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLevelPro"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Profesional"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:textColor="#666666"
+                    android:layout_marginStart="4dp"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="#D1D5DB"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPublish"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Publicar Actividad"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:layout_marginTop="28dp"
+                app:icon="@drawable/ic_send"
+                app:iconGravity="end"
+                app:iconTint="@android:color/white"
+                app:iconSize="18dp"
+                app:backgroundTint="@color/dc_blue_dark"
+                app:cornerRadius="14dp"
+                app:elevation="0dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

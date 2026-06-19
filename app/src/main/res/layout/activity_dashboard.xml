@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5">
+
+    <!-- ════════ HEADER ════════ -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="14dp">
+
+            <FrameLayout
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_header_icon">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_home_filled"
+                    app:tint="@color/dc_green"
+                    android:contentDescription="" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Inicio"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#111111"
+                android:layout_marginStart="12dp" />
+
+            <ImageView
+                android:id="@+id/ivSettings"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_settings"
+                app:tint="#666666"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Configuración" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ════════ CONTENIDO SCROLLABLE ════════ -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/cardHeader"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="20dp">
+
+            <!-- Buscador (con altura más generosa para no cortar texto) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSearch"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:boxBackgroundColor="#E5E7EB"
+                app:boxCornerRadiusTopStart="24dp"
+                app:boxCornerRadiusTopEnd="24dp"
+                app:boxCornerRadiusBottomStart="24dp"
+                app:boxCornerRadiusBottomEnd="24dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/ic_search"
+                app:startIconTint="#888888">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:hint="Buscar partido, lugar o deporte..."
+                    android:textSize="14sp"
+                    android:textColorHint="#999999"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:gravity="center_vertical"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Chips de filtro: 4 opciones en scroll horizontal -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:scrollbars="none"
+                android:overScrollMode="never">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupFilters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="8dp"
+                    app:singleSelection="true"
+                    app:singleLine="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipHoy"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hoy"
+                        android:textColor="#111111"
+                        android:checkable="true"
+                        app:chipBackgroundColor="@color/chip_bg_state"
+                        app:chipIcon="@drawable/ic_calendar_check"
+                        app:chipIconVisible="true"
+                        app:chipIconTint="#111111"
+                        app:checkedIconVisible="false" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipManana"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mañana"
+                        android:textColor="#111111"
+                        android:checkable="true"
+                        app:chipBackgroundColor="@color/chip_bg_state"
+                        app:checkedIconVisible="false" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSemana"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Esta semana"
+                        android:textColor="#111111"
+                        android:checkable="true"
+                        app:chipBackgroundColor="@color/chip_bg_state"
+                        app:checkedIconVisible="false" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipMes"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Este mes"
+                        android:textColor="#111111"
+                        android:checkable="true"
+                        app:chipBackgroundColor="@color/chip_bg_state"
+                        app:checkedIconVisible="false" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <!-- Título sección -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Partidos Sugeridos"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#111111"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Contenedor dinámico para las tarjetas de partidos -->
+            <LinearLayout
+                android:id="@+id/containerMatches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- ════════ BOTTOM NAVIGATION ════════ -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dc_blue_dark"
+    tools:context=".LoginActivity">
+
+    <View
+        android:id="@+id/decorCircle"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_circle_decoration"
+        android:alpha="0.18"
+        android:layout_marginTop="-40dp"
+        android:layout_marginEnd="-40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cardForm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deporte\nConnect"
+            android:textSize="38sp"
+            android:textStyle="bold|italic"
+            android:textColor="@android:color/white"
+            android:lineSpacingMultiplier="1.05"
+            android:fontFamily="sans-serif-condensed" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Inicia sesión para coordinar tus\nactividades deportivas."
+            android:textSize="14sp"
+            android:textColor="#CCffffff"
+            android:lineSpacingMultiplier="1.3" />
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardForm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp"
+            android:paddingTop="28dp"
+            android:paddingBottom="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo electrónico"
+                android:textSize="13sp"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/dc_field_bg"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="#E0E0E0"
+                app:endIconMode="none">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:hint="ejemplo@deporte.com"
+                    android:textSize="14sp"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contraseña"
+                android:textSize="13sp"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/dc_field_bg"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="#E0E0E0"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:hint="••••••••"
+                    android:textSize="14sp"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Olvidaste tu contraseña?"
+                android:textSize="13sp"
+                android:textColor="@color/dc_blue"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="4dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Iniciar Sesión  →"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="18dp"
+                app:backgroundTint="@color/dc_blue"
+                app:cornerRadius="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_legal_notice">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="Aviso Legal: Registrándote confirmas que eres mayor de 18 años y aceptas nuestros términos de servicio."
+                    android:textSize="12sp"
+                    android:textColor="#444444"
+                    android:lineSpacingMultiplier="1.4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿No tienes una cuenta?  "
+                    android:textSize="13sp"
+                    android:textColor="#666666" />
+
+                <TextView
+                    android:id="@+id/tvRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Regístrate"
+                    android:textSize="13sp"
+                    android:textColor="@color/dc_blue"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

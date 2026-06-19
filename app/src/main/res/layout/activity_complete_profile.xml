@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_complete_profile"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <!-- Barra de progreso -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="28dp"
+            android:weightSum="2">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_progress_active"
+                android:layout_marginEnd="6dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_progress_inactive"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completa tu perfil"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#111111"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Queremos conocerte para ofrecerte la mejor experiencia deportiva."
+            android:textSize="13sp"
+            android:textColor="#666666"
+            android:lineSpacingMultiplier="1.3"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Avatar + cámara -->
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_avatar_circle_gray"
+                android:src="@drawable/ic_person"
+                app:tint="#9CA3AF"
+                android:padding="38dp"
+                android:contentDescription="Avatar" />
+
+            <FrameLayout
+                android:id="@+id/fabCamera"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/bg_fab_camera"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@android:color/white"
+                    android:contentDescription="Cambiar foto" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <!-- Nombre Completo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#111111"
+            android:layout_marginBottom="6dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFullName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="#E5E7EB"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/ic_id_card"
+            app:startIconTint="#9CA3AF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFullName"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Ej. Juan Pérez"
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp"
+                android:textColor="#111111"
+                android:inputType="textPersonName|textCapWords"
+                android:background="@android:color/transparent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Teléfono -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Número de Teléfono"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#111111"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPhone"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="#E5E7EB"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/ic_phone_filled"
+            app:startIconTint="#9CA3AF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="+56"
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp"
+                android:textColor="#111111"
+                android:inputType="phone"
+                android:background="@android:color/transparent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Edad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edad"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#111111"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAge"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="#E5E7EB"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/ic_calendar"
+            app:startIconTint="#9CA3AF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAge"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Tu edad"
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp"
+                android:textColor="#111111"
+                android:inputType="number"
+                android:maxLength="3"
+                android:background="@android:color/transparent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ═══ NUEVO: Selector de género ═══ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Género"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#111111"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGenderMale"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Hombre"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:textColor="#666666"
+                android:layout_marginEnd="6dp"
+                app:cornerRadius="10dp"
+                app:strokeColor="#D1D5DB"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGenderFemale"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Mujer"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:textColor="#666666"
+                android:layout_marginStart="6dp"
+                app:cornerRadius="10dp"
+                app:strokeColor="#D1D5DB"
+                app:strokeWidth="1dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvGenderError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="#DC2626"
+            android:layout_marginTop="6dp"
+            android:visibility="gone" />
+
+        <!-- Botón Siguiente -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNextToInterests"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Siguiente  →"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:layout_marginTop="32dp"
+            app:backgroundTint="#16A34A"
+            app:cornerRadius="14dp"
+            app:elevation="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PASO 1 DE 2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#888888"
+            android:letterSpacing="0.15"
+            android:layout_marginTop="14dp"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

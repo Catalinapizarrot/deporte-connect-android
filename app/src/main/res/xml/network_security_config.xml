@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Política de seguridad de red para desarrollo.
+
+    Permite HTTP (sin HTTPS) solo para:
+      - 10.0.2.2  → localhost del PC visto desde el emulador
+      - 127.0.0.1 → localhost
+      - localhost
+      - 192.168.* → IPs locales (celular en la misma WiFi)
+
+    En PRODUCCIÓN este archivo se elimina y solo se permite HTTPS.
+-->
+<network-security-config>
+
+    <!-- Configuración por defecto: permite HTTPS y HTTP para los dominios listados -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">192.168.0.0/16</domain>
+    </domain-config>
+
+    <!-- Para todo lo demás (producción), HTTPS obligatorio -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+</network-security-config>

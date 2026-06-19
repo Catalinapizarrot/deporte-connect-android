@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_margin="6dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <!-- Icono dentro de un cuadrado redondeado -->
+            <FrameLayout
+                android:id="@+id/sportIconContainer"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_sport_icon_default">
+
+                <ImageView
+                    android:id="@+id/ivSportIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="" />
+            </FrameLayout>
+
+            <!-- Nombre del deporte -->
+            <TextView
+                android:id="@+id/tvSportName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#111111"
+                android:text="Deporte" />
+        </LinearLayout>
+
+        <!-- Check arriba a la derecha cuando está seleccionado -->
+        <FrameLayout
+            android:id="@+id/checkBadge"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_sport_check"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="@android:color/white"
+                android:contentDescription="" />
+        </FrameLayout>
+
+    </FrameLayout>
+</androidx.cardview.widget.CardView>

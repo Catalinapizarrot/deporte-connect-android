@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Deporte Connect</string>
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="email_hint">ejemplo@deporte.com</string>
+    <string name="password_hint">••••••••</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="btn_login">Iniciar Sesión →</string>
+    <string name="no_account">¿No tienes una cuenta?</string>
+    <string name="register">Regístrate</string>
+    <string name="legal_notice">Aviso Legal: Registrándote confirmas que eres mayor de 18 años y aceptas nuestros términos de servicio.</string>
+</resources>

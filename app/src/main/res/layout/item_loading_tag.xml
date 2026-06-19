@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="12dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="@drawable/bg_loading_tag">
+
+    <ImageView
+        android:id="@+id/ivTagIcon"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        app:tint="#4ADE80"
+        android:contentDescription="" />
+
+    <TextView
+        android:id="@+id/tvTagLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:letterSpacing="0.1"
+        android:layout_marginStart="6dp" />
+</LinearLayout>
