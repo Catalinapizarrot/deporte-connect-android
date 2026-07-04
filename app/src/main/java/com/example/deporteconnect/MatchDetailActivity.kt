@@ -80,11 +80,15 @@ class MatchDetailActivity : AppCompatActivity() {
             Toast.makeText(this, "Abriendo ruta en mapa (próximamente)", Toast.LENGTH_SHORT).show()
         }
 
+        findViewById<MaterialButton>(R.id.btnReportActivity).setOnClickListener {
+            showReportDialog()
+        }
+
         findViewById<MaterialButton>(R.id.btnJoinMatch).setOnClickListener {
             when {
                 isUserOrganizer -> confirmCancel()
                 isUserJoined -> confirmLeave()
-                else -> joinMatch()
+                else -> confirmJoin()
             }
         }
     }
@@ -188,6 +192,15 @@ class MatchDetailActivity : AppCompatActivity() {
         val orgName = act.organizerName ?: "Organizador"
         findViewById<TextView>(R.id.tvOrganizerName).text = orgName
         findViewById<TextView>(R.id.tvOrganizerInitials).text = initialsOf(orgName)
+        findViewById<TextView>(R.id.tvOrganizerVerified).apply {
+            if (act.organizerVerified == true) {
+                text = "Organizador verificado"
+                setTextColor(getColor(R.color.dc_green))
+            } else {
+                text = "Organizador no verificado"
+                setTextColor(getColor(R.color.dc_warning))
+            }
+        }
 
         // Color del círculo del organizador según su nombre (consistente)
         val bg = findViewById<View>(R.id.organizerAvatarBg)
@@ -327,6 +340,56 @@ class MatchDetailActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     currentActivity?.let { updateMainButton(it) }
+                }
+                else -> {}
+            }
+        }
+    }
+
+    private fun confirmJoin() {
+        AlertDialog.Builder(this)
+            .setTitle("Antes de unirte")
+            .setMessage(
+                "Revisa que el organizador este verificado.\n\n" +
+                        "Prefiere lugares publicos o recintos deportivos.\n\n" +
+                        "No compartas datos personales fuera de la app."
+            )
+            .setNegativeButton("Cancelar", null)
+            .setPositiveButton("Entiendo, unirme") { _, _ -> joinMatch() }
+            .show()
+    }
+
+    private fun showReportDialog() {
+        val reasons = arrayOf(
+            "Actividad falsa",
+            "Lugar sospechoso",
+            "Conducta inapropiada",
+            "Otro"
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle("Reportar actividad")
+            .setItems(reasons) { _, which -> sendReport(reasons[which]) }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun sendReport(reason: String) {
+        lifecycleScope.launch {
+            when (val result = activityRepository.report(activityId, reason)) {
+                is Resource.Success -> {
+                    Toast.makeText(
+                        this@MatchDetailActivity,
+                        "Reporte enviado correctamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        this@MatchDetailActivity,
+                        result.message,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 else -> {}
             }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.deporteconnect.data.AuthRepository
 import com.example.deporteconnect.data.Resource
+import com.example.deporteconnect.data.UserRepository
 import com.example.deporteconnect.util.SessionManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -27,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tvRegister: TextView
 
     private lateinit var authRepository: AuthRepository
+    private lateinit var userRepository: UserRepository
     private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,20 +37,16 @@ class LoginActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
         authRepository = AuthRepository(this)
+        userRepository = UserRepository(this)
         sessionManager = SessionManager.getInstance(this)
+        initViews()
+        setListeners()
 
         // Si ya hay sesión activa, decidir a dónde ir
         if (sessionManager.isLoggedIn()) {
-            if (sessionManager.isProfileComplete()) {
-                navigateToLoading(fromOnboarding = false)
-            } else {
-                navigateToWelcome()
-            }
+            refreshProfileAndNavigate()
             return
         }
-
-        initViews()
-        setListeners()
 
         // Pre-rellenar email si viene desde el Registro
         intent.getStringExtra("PREFILL_EMAIL")?.let {
@@ -131,6 +129,40 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is Resource.Error -> {
                     Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_LONG).show()
+                    resetButton()
+                }
+                else -> resetButton()
+            }
+        }
+    }
+
+    private fun refreshProfileAndNavigate() {
+        btnLogin.isEnabled = false
+        btnLogin.text = "Verificando sesión..."
+
+        lifecycleScope.launch {
+            when (val result = userRepository.getMyProfile()) {
+                is Resource.Success -> {
+                    val user = result.data
+                    val profileComplete = user.profileComplete == true
+
+                    sessionManager.saveSession(
+                        token = sessionManager.getToken() ?: "",
+                        userId = user.id,
+                        email = user.email,
+                        fullName = user.fullName,
+                        profileComplete = profileComplete
+                    )
+
+                    if (profileComplete) {
+                        navigateToLoading(fromOnboarding = false)
+                    } else {
+                        navigateToWelcome()
+                    }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_LONG).show()
+                    sessionManager.clearSession()
                     resetButton()
                 }
                 else -> resetButton()

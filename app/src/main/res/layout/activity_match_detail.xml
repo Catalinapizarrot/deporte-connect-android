@@ -351,6 +351,21 @@
                             android:paddingBottom="2dp"
                             android:background="@drawable/bg_organizer_tag"
                             android:layout_marginTop="3dp" />
+
+                        <TextView
+                            android:id="@+id/tvOrganizerVerified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Organizador no verificado"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#92400E"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:background="@drawable/bg_sport_tag"
+                            android:layout_marginTop="5dp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -423,6 +438,46 @@
                     android:textColor="#444444"
                     android:lineSpacingMultiplier="1.5"
                     android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:background="#FFF7ED"
+                    android:layout_marginTop="14dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Consejos de seguridad"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#111111" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Reúnete en lugares públicos o recintos deportivos.\n- No compartas datos personales fuera de la app.\n- Reporta actividades sospechosas."
+                        android:textSize="13sp"
+                        android:textColor="#444444"
+                        android:lineSpacingMultiplier="1.45"
+                        android:layout_marginTop="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReportActivity"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:text="Reportar actividad"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textColor="@color/dc_warning"
+                        android:layout_marginTop="12dp"
+                        app:cornerRadius="10dp"
+                        app:strokeColor="@color/dc_warning"
+                        app:strokeWidth="1dp" />
+                </LinearLayout>
 
                 <!-- Features chips -->
                 <com.google.android.material.chip.ChipGroup

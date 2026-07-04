@@ -39,7 +39,7 @@ class UserRepository(context: Context) {
                     userId = user.id,
                     email = user.email,
                     fullName = user.fullName,
-                    profileComplete = true
+                    profileComplete = user.profileComplete == true
                 )
                 Resource.Success(user)
             } else {

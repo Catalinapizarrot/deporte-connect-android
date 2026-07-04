@@ -6,6 +6,7 @@ import com.example.deporteconnect.network.ActivityResponse
 import com.example.deporteconnect.network.ApiClient
 import com.example.deporteconnect.network.ApiErrorResponse
 import com.example.deporteconnect.network.CreateActivityRequest
+import com.example.deporteconnect.network.CreateActivityReportRequest
 import com.google.gson.Gson
 import kotlinx.coroutines.CancellationException
 import retrofit2.Response
@@ -49,6 +50,10 @@ class ActivityRepository(context: Context) {
 
     suspend fun cancel(activityId: Long): Resource<Unit> = safeCall {
         api.cancelActivity(activityId)
+    }
+
+    suspend fun report(activityId: Long, reason: String, description: String? = null): Resource<Unit> = safeCall {
+        api.reportActivity(activityId, CreateActivityReportRequest(reason, description))
     }
 
     // ─── Helpers ────────────────────────────────────────────

@@ -20,6 +20,7 @@ import com.example.deporteconnect.data.SportRepository
 import com.example.deporteconnect.data.UserRepository
 import com.example.deporteconnect.network.SportResponse
 import com.example.deporteconnect.network.UpdateProfileRequest
+import com.example.deporteconnect.util.SessionManager
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
@@ -47,6 +48,7 @@ class InterestsSelectionActivity : AppCompatActivity() {
 
     private lateinit var sportRepository: SportRepository
     private lateinit var userRepository: UserRepository
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,7 @@ class InterestsSelectionActivity : AppCompatActivity() {
 
         sportRepository = SportRepository(this)
         userRepository = UserRepository(this)
+        sessionManager = SessionManager.getInstance(this)
 
         loadSports()
 
@@ -180,11 +183,32 @@ class InterestsSelectionActivity : AppCompatActivity() {
         lifecycleScope.launch {
             when (val result = userRepository.updateProfile(request)) {
                 is Resource.Success -> {
-                    Toast.makeText(this@InterestsSelectionActivity, "✓ Perfil guardado", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@InterestsSelectionActivity, LoadingActivity::class.java)
-                    intent.putExtra("FROM_ONBOARDING", true)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                    val user = result.data
+                    val profileComplete = user.profileComplete == true
+
+                    sessionManager.saveSession(
+                        token = sessionManager.getToken() ?: "",
+                        userId = user.id,
+                        email = user.email,
+                        fullName = user.fullName,
+                        profileComplete = profileComplete
+                    )
+
+                    if (profileComplete) {
+                        Toast.makeText(this@InterestsSelectionActivity, "✓ Perfil guardado", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@InterestsSelectionActivity, LoadingActivity::class.java)
+                        intent.putExtra("FROM_ONBOARDING", true)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            this@InterestsSelectionActivity,
+                            "Faltan datos para completar tu perfil. Revisa nombre, telefono, fecha, genero e intereses.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        btn.isEnabled = true
+                        btn.text = "Finalizar  ✓"
+                    }
                 }
                 is Resource.Error -> {
                     Toast.makeText(this@InterestsSelectionActivity, "Error: ${result.message}", Toast.LENGTH_LONG).show()

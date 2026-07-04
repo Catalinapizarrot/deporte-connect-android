@@ -94,6 +94,7 @@ data class ActivityResponse(
     val location: LocationResponse,
     val organizerId: Long,
     val organizerName: String?,
+    val organizerVerified: Boolean?,
     val eventAt: String,
     val maxParticipants: Int,
     val currentParticipants: Int,
@@ -103,6 +104,11 @@ data class ActivityResponse(
     val requiresReservation: Boolean?,
     val description: String?,
     val status: String?
+)
+
+data class CreateActivityReportRequest(
+    val reason: String,
+    val description: String? = null
 )
 
 // ─── MESSAGE ──────────────────────────────────────────
