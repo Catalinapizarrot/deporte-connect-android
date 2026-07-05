@@ -95,6 +95,8 @@ data class ActivityResponse(
     val organizerId: Long,
     val organizerName: String?,
     val organizerVerified: Boolean?,
+    val organizerRating: Double?,
+    val organizerRatingCount: Int?,
     val eventAt: String,
     val maxParticipants: Int,
     val currentParticipants: Int,
@@ -109,6 +111,10 @@ data class ActivityResponse(
 data class CreateActivityReportRequest(
     val reason: String,
     val description: String? = null
+)
+
+data class CreateOrganizerRatingRequest(
+    val stars: Int
 )
 
 // ─── MESSAGE ──────────────────────────────────────────

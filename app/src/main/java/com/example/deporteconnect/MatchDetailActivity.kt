@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -91,6 +93,10 @@ class MatchDetailActivity : AppCompatActivity() {
                 else -> confirmJoin()
             }
         }
+
+        findViewById<MaterialButton>(R.id.btnRateOrganizer).setOnClickListener {
+            showRateOrganizerDialog()
+        }
     }
 
     private fun loadActivityDetails() {
@@ -160,6 +166,7 @@ class MatchDetailActivity : AppCompatActivity() {
 
         // ─── Botón principal ──────────────────────────
         updateMainButton(act)
+        updateRateOrganizerButton(act)
     }
 
     /**
@@ -203,6 +210,8 @@ class MatchDetailActivity : AppCompatActivity() {
         }
 
         // Color del círculo del organizador según su nombre (consistente)
+        findViewById<TextView>(R.id.tvOrganizerRating).text = formatOrganizerRating(act)
+
         val bg = findViewById<View>(R.id.organizerAvatarBg)
         bg.background?.let {
             val color = colorFromName(orgName)
@@ -270,6 +279,7 @@ class MatchDetailActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     isUserJoined = result.data.any { it.id == activityId }
                     currentActivity?.let { updateMainButton(it) }
+                    currentActivity?.let { updateRateOrganizerButton(it) }
                 }
                 else -> {}
             }
@@ -312,6 +322,82 @@ class MatchDetailActivity : AppCompatActivity() {
             else -> {
                 btn.text = "Unirme al Partido  ⚽"
                 btn.setBackgroundColor(getColor(R.color.dc_blue))
+            }
+        }
+    }
+
+    private fun updateRateOrganizerButton(act: ActivityResponse) {
+        val btn = findViewById<MaterialButton>(R.id.btnRateOrganizer)
+        val canRate = act.status == "FINISHED" &&
+                isUserJoined &&
+                !isUserOrganizer &&
+                !hasRatedOrganizer()
+
+        btn.visibility = if (canRate) View.VISIBLE else View.GONE
+        btn.isEnabled = canRate
+        if (canRate) {
+            btn.text = "Calificar organizador"
+        }
+    }
+
+    private fun showRateOrganizerDialog() {
+        val container = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(48, 18, 48, 0)
+        }
+        val ratingBar = RatingBar(this).apply {
+            numStars = 5
+            stepSize = 1f
+            rating = 5f
+        }
+        container.addView(ratingBar)
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Calificar organizador")
+            .setView(container)
+            .setNegativeButton("Cancelar", null)
+            .setPositiveButton("Enviar", null)
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                val stars = ratingBar.rating.toInt().coerceIn(1, 5)
+                dialog.dismiss()
+                rateOrganizer(stars)
+            }
+        }
+        dialog.show()
+    }
+
+    private fun rateOrganizer(stars: Int) {
+        val btn = findViewById<MaterialButton>(R.id.btnRateOrganizer)
+        btn.isEnabled = false
+        btn.text = "Enviando..."
+
+        lifecycleScope.launch {
+            when (val result = activityRepository.rateOrganizer(activityId, stars)) {
+                is Resource.Success -> {
+                    markOrganizerRated()
+                    currentActivity = result.data
+                    renderActivity(result.data)
+                    Toast.makeText(
+                        this@MatchDetailActivity,
+                        "Gracias por tu calificación.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Error -> {
+                    if (result.message.contains("Ya calificaste", ignoreCase = true)) {
+                        markOrganizerRated()
+                    }
+                    Toast.makeText(
+                        this@MatchDetailActivity,
+                        result.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    currentActivity?.let { updateRateOrganizerButton(it) }
+                }
+                else -> {}
             }
         }
     }
@@ -503,6 +589,31 @@ class MatchDetailActivity : AppCompatActivity() {
             "FINISHED" -> "Finalizada"
             else -> act.status ?: ""
         }
+    }
+
+    private fun formatOrganizerRating(act: ActivityResponse): String {
+        val count = act.organizerRatingCount ?: 0
+        if (count <= 0) return "Sin reseñas todavía"
+
+        val rating = act.organizerRating ?: 0.0
+        val reviews = if (count == 1) "1 reseña" else "$count reseñas"
+        return String.format(Locale.US, "⭐ %.1f (%s)", rating, reviews)
+    }
+
+    private fun hasRatedOrganizer(): Boolean {
+        return getSharedPreferences("deporte_connect_session", MODE_PRIVATE)
+            .getBoolean(organizerRatingKey(), false)
+    }
+
+    private fun markOrganizerRated() {
+        getSharedPreferences("deporte_connect_session", MODE_PRIVATE)
+            .edit()
+            .putBoolean(organizerRatingKey(), true)
+            .apply()
+    }
+
+    private fun organizerRatingKey(): String {
+        return "organizer_rating_${currentUserId}_${activityId}"
     }
 
     private fun formatTime(iso: String): String = try {

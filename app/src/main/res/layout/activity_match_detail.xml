@@ -366,6 +366,16 @@
                             android:paddingBottom="3dp"
                             android:background="@drawable/bg_sport_tag"
                             android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:id="@+id/tvOrganizerRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sin reseñas todavía"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#666666"
+                            android:layout_marginTop="6dp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -577,6 +587,19 @@
                     app:cornerRadius="14dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRateOrganizer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Calificar organizador"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            app:backgroundTint="@color/dc_blue"
+            app:cornerRadius="14dp" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -67,6 +67,12 @@ interface ApiService {
         @Body request: CreateActivityReportRequest
     ): Response<Unit>
 
+    @POST("actividades/{id}/calificacion-organizador")
+    suspend fun rateOrganizer(
+        @Path("id") id: Long,
+        @Body request: CreateOrganizerRatingRequest
+    ): Response<ActivityResponse>
+
     // ─── MESSAGES ─────────────────────────────────────────────
     @GET("actividades/{activityId}/mensajes")
     suspend fun getMessages(@Path("activityId") activityId: Long): Response<List<MessageResponse>>
