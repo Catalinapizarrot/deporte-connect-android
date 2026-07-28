@@ -105,7 +105,11 @@ data class ActivityResponse(
     val gender: String?,
     val requiresReservation: Boolean?,
     val description: String?,
-    val status: String?
+    val status: String?,
+    val joinedByCurrentUser: Boolean?,
+    val currentUserRole: String?,
+    val canRateOrganizer: Boolean?,
+    val alreadyRatedOrganizer: Boolean?
 )
 
 data class CreateActivityReportRequest(

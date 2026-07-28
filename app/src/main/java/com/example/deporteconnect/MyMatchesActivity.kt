@@ -214,11 +214,14 @@ class MyMatchesActivity : AppCompatActivity() {
 
         // ─── Banda superior (color según estado) ───
         val stripe = card.findViewById<View>(R.id.cardTopStripe)
-        val isPast = isEventPast(activity.eventAt)
-        when {
-            activity.status == "CANCELLED" -> stripe.setBackgroundColor(Color.parseColor("#9CA3AF"))
-            isPast -> stripe.setBackgroundColor(Color.parseColor("#9CA3AF"))
-            isFeatured -> stripe.setBackgroundColor(Color.parseColor("#22C55E"))
+        when (activity.status) {
+            "CANCELLED", "FINISHED" -> stripe.setBackgroundColor(Color.parseColor("#9CA3AF"))
+            "UNDER_REVIEW" -> stripe.setBackgroundColor(Color.parseColor("#F59E0B"))
+            "FULL" -> stripe.setBackgroundColor(Color.parseColor("#6B7280"))
+            "OPEN" -> {
+                if (isFeatured) stripe.setBackgroundColor(Color.parseColor("#22C55E"))
+                else stripe.setBackgroundColor(Color.parseColor("#2563EB"))
+            }
             else -> stripe.setBackgroundColor(Color.parseColor("#2563EB"))
         }
 
@@ -256,29 +259,34 @@ class MyMatchesActivity : AppCompatActivity() {
 
         // ─── Badge ───
         val badge = card.findViewById<TextView>(R.id.tvCardBadge)
-        when {
-            activity.status == "CANCELLED" -> {
+        when (activity.status) {
+            "CANCELLED" -> {
                 badge.text = "CANCELADA"
                 badge.setTextColor(Color.parseColor("#DC2626"))
                 applyBadgeBg(badge, "#FEE2E2")
             }
-            isPast -> {
-                badge.text = "FINALIZADO"
+            "FINISHED" -> {
+                badge.text = "FINALIZADA"
                 badge.setTextColor(Color.parseColor("#6B7280"))
                 applyBadgeBg(badge, "#E5E7EB")
             }
-            isOrganizer -> {
-                badge.text = "ORGANIZADOR"
-                badge.setTextColor(Color.parseColor("#7C3AED"))
-                applyBadgeBg(badge, "#F3E8FF")
+            "UNDER_REVIEW" -> {
+                badge.text = "EN REVISIÓN"
+                badge.setTextColor(Color.parseColor("#92400E"))
+                applyBadgeBg(badge, "#FEF3C7")
             }
-            isFeatured -> {
-                badge.text = "PRÓXIMO"
-                badge.setTextColor(Color.parseColor("#15803D"))
-                applyBadgeBg(badge, "#DCFCE7")
+            "FULL" -> {
+                badge.text = "COMPLETA"
+                badge.setTextColor(Color.parseColor("#6B7280"))
+                applyBadgeBg(badge, "#E5E7EB")
+            }
+            "OPEN" -> {
+                badge.text = "ABIERTA"
+                badge.setTextColor(Color.parseColor("#1D4ED8"))
+                applyBadgeBg(badge, "#DBEAFE")
             }
             else -> {
-                badge.text = "INSCRITO"
+                badge.text = activity.status ?: "ABIERTA"
                 badge.setTextColor(Color.parseColor("#1D4ED8"))
                 applyBadgeBg(badge, "#DBEAFE")
             }
@@ -357,11 +365,4 @@ class MyMatchesActivity : AppCompatActivity() {
         }
     }
 
-    private fun isEventPast(iso: String): Boolean {
-        return try {
-            LocalDateTime.parse(iso).isBefore(LocalDateTime.now())
-        } catch (e: Exception) {
-            false
-        }
-    }
 }

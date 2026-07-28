@@ -16,6 +16,7 @@ import com.example.deporteconnect.data.Resource
 import com.example.deporteconnect.data.UserRepository
 import com.example.deporteconnect.network.ActivityResponse
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -87,7 +88,9 @@ class MatchDetailActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialButton>(R.id.btnJoinMatch).setOnClickListener {
+            val act = currentActivity
             when {
+                act != null && shouldShowFinishButton(act) -> confirmFinish()
                 isUserOrganizer -> confirmCancel()
                 isUserJoined -> confirmLeave()
                 else -> confirmJoin()
@@ -297,6 +300,10 @@ class MatchDetailActivity : AppCompatActivity() {
                 btn.isEnabled = false
                 btn.setBackgroundColor(getColor(android.R.color.darker_gray))
             }
+            shouldShowFinishButton(act) -> {
+                btn.text = "Finalizar actividad"
+                btn.setBackgroundColor(getColor(R.color.dc_blue))
+            }
             act.status == "FINISHED" -> {
                 btn.text = "Actividad finalizada"
                 btn.isEnabled = false
@@ -326,17 +333,29 @@ class MatchDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun shouldShowFinishButton(act: ActivityResponse): Boolean {
+        return isUserOrganizer &&
+                act.status == "OPEN" &&
+                isEventPast(act.eventAt)
+    }
+
     private fun updateRateOrganizerButton(act: ActivityResponse) {
         val btn = findViewById<MaterialButton>(R.id.btnRateOrganizer)
-        val canRate = act.status == "FINISHED" &&
-                isUserJoined &&
-                !isUserOrganizer &&
-                !hasRatedOrganizer()
-
-        btn.visibility = if (canRate) View.VISIBLE else View.GONE
-        btn.isEnabled = canRate
-        if (canRate) {
-            btn.text = "Calificar organizador"
+        when {
+            act.canRateOrganizer == true -> {
+                btn.visibility = View.VISIBLE
+                btn.isEnabled = true
+                btn.text = "Calificar organizador"
+            }
+            act.alreadyRatedOrganizer == true -> {
+                btn.visibility = View.VISIBLE
+                btn.isEnabled = false
+                btn.text = "Ya calificaste esta actividad"
+            }
+            else -> {
+                btn.visibility = View.GONE
+                btn.isEnabled = false
+            }
         }
     }
 
@@ -377,7 +396,6 @@ class MatchDetailActivity : AppCompatActivity() {
         lifecycleScope.launch {
             when (val result = activityRepository.rateOrganizer(activityId, stars)) {
                 is Resource.Success -> {
-                    markOrganizerRated()
                     currentActivity = result.data
                     renderActivity(result.data)
                     Toast.makeText(
@@ -387,9 +405,6 @@ class MatchDetailActivity : AppCompatActivity() {
                     ).show()
                 }
                 is Resource.Error -> {
-                    if (result.message.contains("Ya calificaste", ignoreCase = true)) {
-                        markOrganizerRated()
-                    }
                     Toast.makeText(
                         this@MatchDetailActivity,
                         result.message,
@@ -443,6 +458,44 @@ class MatchDetailActivity : AppCompatActivity() {
             .setNegativeButton("Cancelar", null)
             .setPositiveButton("Entiendo, unirme") { _, _ -> joinMatch() }
             .show()
+    }
+
+    private fun confirmFinish() {
+        AlertDialog.Builder(this)
+            .setTitle("Finalizar actividad")
+            .setMessage("¿Seguro que quieres finalizar esta actividad? Después los participantes podrán calificar al organizador.")
+            .setNegativeButton("Cancelar", null)
+            .setPositiveButton("Finalizar") { _, _ -> finishCurrentActivity() }
+            .show()
+    }
+
+    private fun finishCurrentActivity() {
+        val btn = findViewById<MaterialButton>(R.id.btnJoinMatch)
+        btn.isEnabled = false
+        btn.text = "Finalizando..."
+
+        lifecycleScope.launch {
+            when (val result = activityRepository.finishActivity(activityId)) {
+                is Resource.Success -> {
+                    currentActivity = result.data
+                    renderActivity(result.data)
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Actividad finalizada correctamente.",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        this@MatchDetailActivity,
+                        result.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    currentActivity?.let { updateMainButton(it) }
+                }
+                else -> {}
+            }
+        }
     }
 
     private fun showReportDialog() {
@@ -600,25 +653,13 @@ class MatchDetailActivity : AppCompatActivity() {
         return String.format(Locale.US, "⭐ %.1f (%s)", rating, reviews)
     }
 
-    private fun hasRatedOrganizer(): Boolean {
-        return getSharedPreferences("deporte_connect_session", MODE_PRIVATE)
-            .getBoolean(organizerRatingKey(), false)
-    }
-
-    private fun markOrganizerRated() {
-        getSharedPreferences("deporte_connect_session", MODE_PRIVATE)
-            .edit()
-            .putBoolean(organizerRatingKey(), true)
-            .apply()
-    }
-
-    private fun organizerRatingKey(): String {
-        return "organizer_rating_${currentUserId}_${activityId}"
-    }
-
     private fun formatTime(iso: String): String = try {
         LocalDateTime.parse(iso).format(DateTimeFormatter.ofPattern("HH:mm"))
     } catch (e: Exception) { "" }
+
+    private fun isEventPast(iso: String): Boolean = try {
+        LocalDateTime.parse(iso).isBefore(LocalDateTime.now())
+    } catch (e: Exception) { false }
 
     private fun formatLevel(level: String?): String = when (level) {
         "PRINCIPIANTE" -> "Princ."

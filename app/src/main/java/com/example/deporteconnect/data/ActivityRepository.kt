@@ -53,6 +53,10 @@ class ActivityRepository(context: Context) {
         api.cancelActivity(activityId)
     }
 
+    suspend fun finishActivity(activityId: Long): Resource<ActivityResponse> = safeCall {
+        api.finishActivity(activityId)
+    }
+
     suspend fun report(activityId: Long, reason: String, description: String? = null): Resource<Unit> = safeCall {
         api.reportActivity(activityId, CreateActivityReportRequest(reason, description))
     }

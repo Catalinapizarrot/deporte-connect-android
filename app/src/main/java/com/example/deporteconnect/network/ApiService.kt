@@ -61,6 +61,9 @@ interface ApiService {
     @DELETE("actividades/{id}")
     suspend fun cancelActivity(@Path("id") id: Long): Response<Unit>
 
+    @POST("actividades/{id}/finalizar")
+    suspend fun finishActivity(@Path("id") id: Long): Response<ActivityResponse>
+
     @POST("actividades/{id}/reportes")
     suspend fun reportActivity(
         @Path("id") id: Long,
